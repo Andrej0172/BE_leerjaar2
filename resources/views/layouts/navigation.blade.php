@@ -22,6 +22,18 @@
                             {{ __('Magazijn') }}
                         </x-nav-link>
                     @endcan
+
+                    @can('magazijn.voorraad-bijwerken')
+                        <x-nav-link :href="route('magazijn.voorraad')" :active="request()->routeIs('magazijn.voorraad*')">
+                            {{ __('Voorraad') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('gebruiker.beheren')
+                        <x-nav-link :href="route('gebruiker.index')" :active="request()->routeIs('gebruiker.*')">
+                            {{ __('Gebruikers') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -81,6 +93,18 @@
             @can('magazijn.bekijken')
                 <x-responsive-nav-link :href="route('magazijn.index')" :active="request()->routeIs('magazijn.*')">
                     {{ __('Magazijn') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('magazijn.voorraad-bijwerken')
+                <x-responsive-nav-link :href="route('magazijn.voorraad')" :active="request()->routeIs('magazijn.voorraad*')">
+                    {{ __('Voorraad') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('gebruiker.beheren')
+                <x-responsive-nav-link :href="route('gebruiker.index')" :active="request()->routeIs('gebruiker.*')">
+                    {{ __('Gebruikers') }}
                 </x-responsive-nav-link>
             @endcan
         </div>
