@@ -15,6 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    {{-- Alleen tonen als de gebruiker het magazijn mag zien (Gate uit AppServiceProvider). --}}
+                    @can('magazijn.bekijken')
+                        <x-nav-link :href="route('magazijn.index')" :active="request()->routeIs('magazijn.*')">
+                            {{ __('Magazijn') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -70,6 +77,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @can('magazijn.bekijken')
+                <x-responsive-nav-link :href="route('magazijn.index')" :active="request()->routeIs('magazijn.*')">
+                    {{ __('Magazijn') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
