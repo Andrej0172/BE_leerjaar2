@@ -3,23 +3,35 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * De inlogaccounts uit de opdracht aanmaken.
+     *
+     * Het wachtwoord is overal `password`, zodat je in kunt loggen om de
+     * schermen (en de rechten van elke rol) te bekijken.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $accounts = [
+            ['name' => 'Magazijnmedewerker Jamin', 'email' => 'magazijn@jamin.nl', 'rolenum' => User::ROL_MAGAZIJNMEDEWERKER],
+            ['name' => 'Administrator Jamin', 'email' => 'admin@jamin.nl', 'rolenum' => User::ROL_ADMINISTRATOR],
+            ['name' => 'Gebruiker Jamin', 'email' => 'gebruiker@jamin.nl', 'rolenum' => User::ROL_GEBRUIKER],
+            ['name' => 'Test Magazijnmedewerker', 'email' => 'test@example.com', 'rolenum' => User::ROL_MAGAZIJNMEDEWERKER],
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($accounts as $account) {
+            User::firstOrCreate(
+                ['email' => $account['email']],
+                [
+                    'name' => $account['name'],
+                    'rolenum' => $account['rolenum'],
+                    'password' => 'password',
+                    'email_verified_at' => now(),
+                ]
+            );
+        }
     }
 }
